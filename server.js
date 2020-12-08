@@ -16,7 +16,18 @@ connection.connect((err) => {
     askQuestions();
 });
 
-const askQuestions = () => {
+/*function afterConnection() {
+    connection.query('SELECT * FROM department',
+    function (err,res) {
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+    }
+    )
+}
+*/
+
+function askQuestions() {
     inquirer
     .prompt([
         {
@@ -41,24 +52,24 @@ const askQuestions = () => {
 
 .then((answer) => {
     switch (answer.choice) {
-        case "View All Employees":
+        case "View all Employees":
             viewAllEmployees();
             break;
 
-         case "View All Employees By Department":
+         case "View all Employees by Department":
                 viewAllEmployeesByDepartment();
                 break;
 
-         case "View All Employees By Manager":
+         case "View all Employees by Manager":
                 viewAllEmployeesByManager();
                 break;
 
-         case "Add Employees":
+         case "Add Employee":
                  addEmployee();
                  break;
 
-        case "Remove Employees":
-                removeEmployees();
+        case "Remove Employee":
+                removeEmployee();
                  break;
 
          case "Update Employee Role":
@@ -69,7 +80,7 @@ const askQuestions = () => {
                 updateEmployeeManager();
                 break;
         case "exit":
-            connection.end()
+            connection.end();
            break;
                     
                               
@@ -80,14 +91,16 @@ const askQuestions = () => {
 }
 
 function viewAllEmployees() {
-    connection.query("SELECT * FROM department",
+    connection.query(
+        'SELECT * FROM department',
     function (err,res) {
         if (err) throw err;
-        
+        console.table(res);
     askQuestions();
     });
 };
 
+/*
 function viewAllEmployeesByDepartment() {
     connection.query("SELECT * FROM",
     function (err, res) {
@@ -103,3 +116,4 @@ function viewAllEmployeesByManager() {
         askQuestions();
     })
 }
+*/
