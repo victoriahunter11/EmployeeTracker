@@ -112,20 +112,71 @@ function viewAllEmployeesByDepartment() {
 }
 
 function viewAllEmployeesByManager() {
-    connection.query("SELECT * FROM",
+    connection.query(
+        'SELECT manager.first_name AS "Manager first name", manager.last_name AS "Manager last name", employee.first_name,  employee.last_name FROM manager INNER JOIN employee ON manager.id=employee.manager_id;',
     function (err, res) {
         if (err) throw err;
+        console.table(res);
         askQuestions();
     })
 }
 
-function addEmployee() {
-    connection.query("SELECT * FROM",
-    function (err, res) {
-        if (err) throw err;
+const addEmployee = () => {
+    inquirer
+    .prompt([
+        {
+            name: 'firstName',
+            type: 'input',
+            message: 'Enter employees first name.'
+        },
+        {
+            name: 'lastName',
+            type: 'input',
+            message: 'Enter employees last name.'
+        },
+        {
+            name: 'empID',
+            type: 'input',
+            message: 'Enter employees id #.'
+        },
+        {
+            name: 'empRoleID',
+            type: 'input',
+            message: 'Enter employees role ID.'
+        },
+        {
+            name: 'empManagerID',
+            type: 'input',
+            message: 'Enter employees manager ID.'
+        }
+
+    ])
+    .then((answer) => {
+        connection.query( 'INSERT INTO employee SET ?',
+        {
+            first_name: answer.firstName,
+            last_name: answer.lastName,
+            id: answer.empID,
+            role_id: answer.empRoleID,
+            manager_id: answer.empManagerID
+            
+        },
+        
+        (err) => {
+            if (err) throw err;
+            console.log( "You have added another employee! Select where you want to go next.")
+            
+        }
+        );
         askQuestions();
-    })
-}
+
+
+    });
+};
+
+
+
+
 
 function removeEmployee() {
     connection.query("SELECT * FROM",
