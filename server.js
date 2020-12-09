@@ -35,6 +35,7 @@ function askQuestions() {
                 'Remove Employee',
                 'Update Employee Role',
                 'Add Department',
+                'Remove Department',
                 'Add Role',
                 'Exit'
             ],
@@ -77,6 +78,11 @@ function askQuestions() {
          case "Add Department":
                 addDepartment();
                 break;
+        
+         case "Remove Department":
+                 removeDepartment();
+                break;
+                
         case "Add Role":
                 addRole();
                 break;
@@ -292,6 +298,42 @@ const addDepartment = () => {
     });
 };
 
+//remove department
+
+const removeDepartment = () => {
+    inquirer
+    .prompt([
+        {
+            name: 'deptID',
+            type: 'input',
+            message: 'Enter department ID.'
+        },
+        {
+            name: 'deptName',
+            type: 'input',
+            message: 'Enter department name.'
+        },
+
+    ])
+    .then((answer) => {
+        connection.query( 'DELETE FROM department WHERE ?',
+        {
+            id: answer.deptID,
+            name: answer.deptName
+            
+        },
+        
+        (err) => {
+            if (err) throw err;
+            console.log( "You have removed a department! Select where you want to go next.")
+            
+        }
+        );
+        askQuestions();
+
+
+    });
+};
 
 
 //add Role
