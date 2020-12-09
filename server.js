@@ -42,7 +42,8 @@ function askQuestions() {
                 'Add Employee',
                 'Remove Employee',
                 'Update Employee Role',
-                'Update Employee Manager',
+                'Add Department',
+                'Add Role',
                 'Exit'
             ],
         },
@@ -76,8 +77,11 @@ function askQuestions() {
                 updateEmployeeRole();
                 break;
                     
-         case "Update Employee Manager":
-                updateEmployeeManager();
+         case "Add Department":
+                addDepartment();
+                break;
+        case "Add Role":
+                addRole();
                 break;
         case "exit":
             connection.end();
@@ -175,18 +179,164 @@ const addEmployee = () => {
 };
 
 
+const removeEmployee = () => {
+    inquirer
+    .prompt([
+        {
+            name: 'empID',
+            type: 'input',
+            message: 'Enter employees ID number.'
+        }
+        
 
-
-
-function removeEmployee() {
-    connection.query("SELECT * FROM",
-    function (err, res) {
-        if (err) throw err;
+    ])
+    .then((answer) => {
+        connection.query( 'DELETE FROM employee WHERE ?',
+        {
+            id: answer.empID,
+            
+        },
+        
+        (err) => {
+            if (err) throw err;
+            console.log( "You have removed an employee! Select where you want to go next.")
+            
+        }
+        );
         askQuestions();
-    })
-}
 
-function updateEmployeeRole() {
+
+    });
+};
+
+//update employee's role
+
+const updateEmployeeRole = () => {
+    inquirer
+    .prompt([
+        {
+            name: 'empID',
+            type: 'input',
+            message: 'Enter employees ID number for whose role you want to update.'
+        },
+        {
+            name: 'updateRoleID',
+            type: 'input',
+            message: 'Enter employees new role ID.'
+
+        }
+        
+
+    ])
+    .then((answer) => {
+        connection.query( 'UPDATE employee SET role_id= ?  WHERE id=?;',
+        {
+            
+            role_id: answer.updateRoleID,
+            id: answer.empID,
+            
+        },
+        
+        (err) => {
+            if (err) throw err;
+            console.log( "You have updated an employee! Select where you want to go next.")
+            
+        }
+        );
+        askQuestions();
+
+
+    });
+};
+
+//add department
+const addDepartment = () => {
+    inquirer
+    .prompt([
+        {
+            name: 'deptID',
+            type: 'input',
+            message: 'Enter department ID.'
+        },
+        {
+            name: 'deptName',
+            type: 'input',
+            message: 'Enter department name.'
+        },
+    ])
+    .then((answer) => {
+        connection.query( 'INSERT INTO department SET ?',
+        {
+            id: answer.deptID,
+            name: answer.deptName
+            
+        },
+        
+        (err) => {
+            if (err) throw err;
+            console.log( "You have added another department! Select where you want to go next.")
+            
+        }
+        );
+        askQuestions();
+
+
+    });
+};
+
+
+
+//add Role
+const addRole = () => {
+    inquirer
+    .prompt([
+        {
+            name: 'roleID',
+            type: 'input',
+            message: 'Enter role ID.'
+        },
+        {
+            name: 'title',
+            type: 'input',
+            message: 'Enter role title.'
+        },
+        {
+            name: 'salary',
+            type: 'input',
+            message:'Enter salary.'
+        },
+        {
+
+            name: 'deptID',
+            type: 'input',
+            message:'Enter department ID.'
+        }
+    ])
+    .then((answer) => {
+        connection.query( 'INSERT INTO role SET ?',
+        {
+            id: answer.roleID,
+            title: answer.title,
+            salary: answer.salary,
+            department_id: answer.deptID
+            
+            
+        },
+        
+        (err) => {
+            if (err) throw err;
+            console.log( "You have added another role! Select where you want to go next.")
+            
+        }
+        );
+        askQuestions();
+
+
+    });
+};
+
+
+/*function updateEmployeeRole() {
     connection.query("SELECT * FROM",
     function (err, res) {
         if (err) throw err;
@@ -201,3 +351,4 @@ function updateEmployeeManager() {
         askQuestions();
     })
 }
+*/
