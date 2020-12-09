@@ -22,3 +22,9 @@ last_name VARCHAR(30),
 role_id INT,
 manager_id INT
 );
+
+CREATE TABLE manager (
+id INT NOT NULL PRIMARY KEY,
+first_name VARCHAR(30),
+last_name VARCHAR(30)
+);

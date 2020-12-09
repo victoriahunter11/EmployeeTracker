@@ -92,7 +92,7 @@ function askQuestions() {
 
 function viewAllEmployees() {
     connection.query(
-        'SELECT * FROM department',
+        'SELECT * FROM employee',
     function (err,res) {
         if (err) throw err;
         console.table(res);
@@ -100,11 +100,13 @@ function viewAllEmployees() {
     });
 };
 
-/*
+
 function viewAllEmployeesByDepartment() {
-    connection.query("SELECT * FROM",
+    connection.query(
+    'SELECT department.name AS "department", first_name, last_name FROM ((Role INNER JOIN employee ON role.id=employee.role_id) INNER JOIN department ON role.department_id=department.id);',
     function (err, res) {
         if (err) throw err;
+        console.table(res);
         askQuestions();
     })
 }
@@ -116,4 +118,35 @@ function viewAllEmployeesByManager() {
         askQuestions();
     })
 }
-*/
+
+function addEmployee() {
+    connection.query("SELECT * FROM",
+    function (err, res) {
+        if (err) throw err;
+        askQuestions();
+    })
+}
+
+function removeEmployee() {
+    connection.query("SELECT * FROM",
+    function (err, res) {
+        if (err) throw err;
+        askQuestions();
+    })
+}
+
+function updateEmployeeRole() {
+    connection.query("SELECT * FROM",
+    function (err, res) {
+        if (err) throw err;
+        askQuestions();
+    })
+}
+
+function updateEmployeeManager() {
+    connection.query("SELECT * FROM",
+    function (err, res) {
+        if (err) throw err;
+        askQuestions();
+    })
+}

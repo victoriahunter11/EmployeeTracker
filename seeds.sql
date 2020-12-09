@@ -1,28 +1,36 @@
 INSERT INTO department (id, name)
-VALUES (1, "Marketing");
+VALUES (0101, "Marketing");
 INSERT INTO department (id, name)
-VALUES (2,"Sales");
+VALUES (0201,"Sales");
 INSERT INTO department (id, name)
-VALUES (3, "Accounting");
+VALUES (0301, "Accounting");
 INSERT INTO department (id, name)
-VALUES (4, "Engineering");
+VALUES (0401, "Engineering");
 
 INSERT INTO role (id, title, salary, department_id)
-VALUES (11, "Advertising Strategy", 50000, 1);
+VALUES (10, "Advertising Strategy", 50000, 101);
 INSERT INTO role (id, title, salary, department_id)
-VALUES (22,"Acct Manager", 60000, 2);
+VALUES (20,"Acct Manager", 60000, 201);
 INSERT INTO role (id, title, salary, department_id)
-VALUES (33, "Accountant", 70000, 3);
+VALUES (30, "Accountant", 70000, 301);
 INSERT INTO role (id, title, salary, department_id)
-VALUES (44, "Software Engineer", 80000, 4);
+VALUES (40, "Software Engineer", 80000, 401);
 
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES (97, "Janet", "Smith", 10, 1);
+VALUES (1, "Janet", "Smith", 10, 11);
 INSERT INTO employee (id,  first_name, last_name, role_id, manager_id)
-VALUES (96, "Alex","John", 20, 2);
+VALUES (2, "Alex","John", 20, 22);
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES (98, "Michael", "Edwin", 30, 3);
+VALUES (3, "Michael", "Edwin", 30, 33);
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES (99, "Jane", "Alice", 40, 4);
+VALUES (4, "Jane", "Alice", 40, 44);
 
+INSERT INTO manager (first_name, last_name, id)
+VALUES ("Richard", "Jones",  44);
+INSERT INTO manager ( first_name, last_name, id)
+VALUES ("Michael", "Buble", 11);
+INSERT INTO manager (first_name, last_name, id)
+VALUES ( "Josh", "Brown", 22);
+INSERT INTO manager ( first_name, last_name, id)
+VALUES ( "Rico", "Smith", 33);
