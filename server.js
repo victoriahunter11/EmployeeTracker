@@ -16,16 +16,7 @@ connection.connect((err) => {
     askQuestions();
 });
 
-/*function afterConnection() {
-    connection.query('SELECT * FROM department',
-    function (err,res) {
-        if (err) throw err;
-        console.table(res);
-        connection.end();
-    }
-    )
-}
-*/
+
 
 function askQuestions() {
     inquirer
@@ -39,6 +30,7 @@ function askQuestions() {
                 'View all Employees',
                 'View all Employees by Department',
                 'View all Employees by Manager',
+                'View all Employees by Role',
                 'Add Employee',
                 'Remove Employee',
                 'Update Employee Role',
@@ -60,6 +52,11 @@ function askQuestions() {
          case "View all Employees by Department":
                 viewAllEmployeesByDepartment();
                 break;
+
+            
+         case "View all Employees by Role":
+            viewAllEmployeesByRole();
+            break;
 
          case "View all Employees by Manager":
                 viewAllEmployeesByManager();
@@ -108,6 +105,17 @@ function viewAllEmployees() {
 function viewAllEmployeesByDepartment() {
     connection.query(
     'SELECT department.name AS "department", first_name, last_name FROM ((Role INNER JOIN employee ON role.id=employee.role_id) INNER JOIN department ON role.department_id=department.id);',
+    function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        askQuestions();
+    })
+}
+
+
+function viewAllEmployeesByRole() {
+    connection.query(
+    '  SELECT department.name, first_name, last_name, role.title  AS "Role" FROM ((Role INNER JOIN employee ON role.id=employee.role_id) INNER JOIN department ON role.department_id=department.id);',
     function (err, res) {
         if (err) throw err;
         console.table(res);
@@ -326,6 +334,7 @@ const addRole = () => {
         (err) => {
             if (err) throw err;
             console.log( "You have added another role! Select where you want to go next.")
+            console.table(res);
             
         }
         );
@@ -335,20 +344,3 @@ const addRole = () => {
     });
 };
 
-
-/*function updateEmployeeRole() {
-    connection.query("SELECT * FROM",
-    function (err, res) {
-        if (err) throw err;
-        askQuestions();
-    })
-}
-
-function updateEmployeeManager() {
-    connection.query("SELECT * FROM",
-    function (err, res) {
-        if (err) throw err;
-        askQuestions();
-    })
-}
-*/
